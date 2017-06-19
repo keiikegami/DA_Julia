@@ -1,4 +1,4 @@
-function deferred_acceptance(m_prefs::Vector{Vector{Int}},
+function ikegami(m_prefs::Vector{Vector{Int}},
                              f_prefs::Vector{Vector{Int}})
     m = length(m_prefs)
     n = length(f_prefs)
