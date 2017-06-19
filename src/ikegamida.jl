@@ -1,5 +1,4 @@
-function ikegami(m_prefs::Vector{Vector{Int}},
-                             f_prefs::Vector{Vector{Int}})
+function ikegami(m_prefs::Vector{Vector{Int}}, f_prefs::Vector{Vector{Int}})
     m = length(m_prefs)
     n = length(f_prefs)
     
@@ -32,6 +31,7 @@ function ikegami(m_prefs::Vector{Vector{Int}},
     
     return ikegamida(m_prefs_2d, n_prefs_2d)
 end
+
 
 function ikegamida(m_prefs, f_prefs)
     
