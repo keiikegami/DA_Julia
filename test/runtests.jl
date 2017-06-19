@@ -1,8 +1,6 @@
 using DefferedAcceptance
 using Base.Test
 
-
-
 const _deferred_acceptance = DefferedAcceptance.ikegami
 
 function mat2vecs{T<:Integer}(prefs::Matrix{T})

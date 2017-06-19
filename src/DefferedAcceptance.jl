@@ -1,37 +1,37 @@
 module DefferedAcceptance
 
-function ikegami(m_prefs::Vector{Vector{Int}}, f_prefs::Vector{Vector{Int}})
-    m = length(m_prefs)
-    n = length(f_prefs)
+function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}})
+    m = length(a)
+    n = length(b)
 
-    m_prefs_2d = Matrix{Int64}(n+1, m)
-    f_prefs_2d = Matrix{Int64}(m+1, n)
+    a_2d = Matrix{Int64}(n+1, m)
+    b_2d = Matrix{Int64}(m+1, n)
 
-    for (t,i) in enumerate(m_prefs)
+    for (t,i) in enumerate(a)
         if length(i) != n
             new_element = Array(Int, n+1-length(i))
             new_element[1] = 0
             new_element[2:end] = [j for j in range(1,n) if !(j in i)]
-            m_prefs[t] = append!(i, new_element)
+            a[t] = append!(i, new_element)
         else
-            m_prefs[t] = push!(i, 0)
+            a[t] = push!(i, 0)
         end
-        m_prefs_2d[:, t] = m_prefs[t]
+        a_2d[:, t] = a[t]
     end
 
-    for (t,i) in enumerate(f_prefs)
+    for (t,i) in enumerate(b)
         if length(i) != m
             new_element = Array(Int, m+1-length(i))
             new_element[1] = 0
             new_element[2:end] = [j for j in range(1,m) if !(j in i)]
-            f_prefs[t] = append!(i, new_element)
+            b[t] = append!(i, new_element)
         else
-            f_prefs[t] = push!(i, 0)
+            b[t] = push!(i, 0)
         end
-        f_prefs_2d[:, t] = f_prefs[t]
+        b_2d[:, t] = b[t]
     end
 
-    return ikegamida(m_prefs_2d, f_prefs_2d)
+    return ikegamida(a_2d, b_2d)
 end
 
 
