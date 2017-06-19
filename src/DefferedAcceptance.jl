@@ -79,8 +79,6 @@ function ikegamida(m_prefs, f_prefs)
 
                     else
                         no_marriage = f_rank[1, j]
-                        print(no_marriage)
-                        print(f_rank[i+1, j]) #ここが2となっている。本当は5。→最初の整形の段階でちゃんと残ったやつを入れてあげないとダメか。
 
                         if f_rank[i+1, j] < no_marriage
 
