@@ -11,7 +11,7 @@ function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}})
         if length(i) != n
             a_2d[1:length(i), t] = i
             a_2d[length(i)+1, t] = 0
-            a_2d[(length(i)+2):end, t] = 1
+            a_2d[(length(i)+2):end, t] = Array([j for j in 1:n if !(j in i)])
         else
             a_2d[1:length(i), t] = i
             a_2d[length(i)+1, t] = 0
@@ -22,7 +22,7 @@ function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}})
         if length(i) != m
             b_2d[1:length(i), t] = i
             b_2d[length(i)+1, t] = 0
-            b_2d[length(i)+2:end, t] = 1
+            b_2d[length(i)+2:end, t] = Array([j for j in 1:m if !(j in i)])
         else
             b_2d[1:length(i), t] = i
             b_2d[length(i)+1, t] = 0
@@ -79,6 +79,8 @@ function ikegamida(m_prefs, f_prefs)
 
                     else
                         no_marriage = f_rank[1, j]
+                        print(no_marriage)
+                        print(f_rank[i+1, j]) #ここが2となっている。本当は5。→最初の整形の段階でちゃんと残ったやつを入れてあげないとダメか。
 
                         if f_rank[i+1, j] < no_marriage
 
@@ -119,5 +121,4 @@ function ikegamida(m_prefs, f_prefs)
 
     return m_matched, f_matched
 end
-
 end
