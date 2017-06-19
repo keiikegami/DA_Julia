@@ -9,30 +9,29 @@ function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}})
 
     for (t,i) in enumerate(a)
         if length(i) != n
-            new_element = Array(Int, n+1-length(i))
-            new_element[1] = 0
-            new_element[2:end] = [j for j in range(1,n) if !(j in i)]
-            a[t] = append!(i, new_element)
+            a_2d[1:length(i), t] = i
+            a_2d[length(i)+1, t] = 0
+            a_2d[(length(i)+2):end, t] = 1
         else
-            a[t] = push!(i, 0)
+            a_2d[1:length(i), t] = i
+            a_2d[length(i)+1, t] = 0
         end
-        a_2d[:, t] = a[t]
     end
 
     for (t,i) in enumerate(b)
         if length(i) != m
-            new_element = Array(Int, m+1-length(i))
-            new_element[1] = 0
-            new_element[2:end] = [j for j in range(1,m) if !(j in i)]
-            b[t] = append!(i, new_element)
+            b_2d[1:length(i), t] = i
+            b_2d[length(i)+1, t] = 0
+            b_2d[length(i)+2:end, t] = 1
         else
-            b[t] = push!(i, 0)
+            b_2d[1:length(i), t] = i
+            b_2d[length(i)+1, t] = 0
         end
-        b_2d[:, t] = b[t]
     end
 
     return ikegamida(a_2d, b_2d)
 end
+
 
 
 function ikegamida(m_prefs, f_prefs)
