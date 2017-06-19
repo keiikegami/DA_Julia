@@ -5,7 +5,7 @@ function ikegami(m_prefs::Vector{Vector{Int}}, f_prefs::Vector{Vector{Int}})
     n = length(f_prefs)
 
     m_prefs_2d = Matrix{Int64}(n+1, m)
-    n_prefs_2d = Matrix{Int64}(m+1, n)
+    f_prefs_2d = Matrix{Int64}(m+1, n)
 
     for (t,i) in enumerate(m_prefs)
         if length(i) != n
@@ -19,19 +19,19 @@ function ikegami(m_prefs::Vector{Vector{Int}}, f_prefs::Vector{Vector{Int}})
         m_prefs_2d[:, t] = m_prefs[t]
     end
 
-    for (t,i) in enumerate(n_prefs)
+    for (t,i) in enumerate(f_prefs)
         if length(i) != m
             new_element = Array(Int, m+1-length(i))
             new_element[1] = 0
             new_element[2:end] = [j for j in range(1,m) if !(j in i)]
-            n_prefs[t] = append!(i, new_element)
+            f_prefs[t] = append!(i, new_element)
         else
-            n_prefs[t] = push!(i, 0)
+            f_prefs[t] = push!(i, 0)
         end
-        n_prefs_2d[:, t] = n_prefs[t]
+        f_prefs_2d[:, t] = f_prefs[t]
     end
 
-    return ikegamida(m_prefs_2d, n_prefs_2d)
+    return ikegamida(m_prefs_2d, f_prefs_2d)
 end
 
 
