@@ -31,16 +31,56 @@ function converter(a::Vector{Vector{Int}}, b::Vector{Vector{Int}})
     return a_2d, b_2d
 end
 
+function converter(a::Vector{Vector{Int}}, b::Vector{Vector{Int}}, caps::Vector{Int})
+    m = length(a)
+    n = length(b)
+
+    a_2d = Matrix{Int64}(n+1, m)
+    b_2d = Matrix{Int64}(m+1, n)
+
+    for (x,y) in enumerate(b)
+        if y == []
+            caps = insert!(caps, x, 0)
+        end
+    end
+    
+    for (t,i) in enumerate(a)
+        if length(i) != n
+            a_2d[1:length(i), t] = i
+            a_2d[length(i)+1, t] = 0
+            a_2d[(length(i)+2):end, t] = Array([j for j in 1:n if !(j in i)])
+        else
+            a_2d[1:length(i), t] = i
+            a_2d[length(i)+1, t] = 0
+        end
+    end
+
+    for (t,i) in enumerate(b)
+        if length(i) != m
+            b_2d[1:length(i), t] = i
+            b_2d[length(i)+1, t] = 0
+            b_2d[length(i)+2:end, t] = Array([j for j in 1:m if !(j in i)])
+        else
+            b_2d[1:length(i), t] = i
+            b_2d[length(i)+1, t] = 0
+        end
+    end
+    return a_2d, b_2d, caps
+end
+
 # many-to-manyの関数を入れる
 function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}}, caps::Vector{Int})
-    a_2d = converter(a, b)[1]
-    b_2d = converter(a, b)[2]
+    w = converter(a, b, caps)
+    a_2d = w[1]
+    b_2d = w[2]
+    caps = w[3]
     return ikegamida_mm(a_2d, b_2d, caps)
 end
 
 function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}})
-    a_2d = converter(a, b)[1]
-    b_2d = converter(a, b)[2]
+    w = converter(a, b, caps)
+    a_2d = w[1]
+    b_2d = w[2]
     return ikegamida(a_2d, b_2d)
 end
 
@@ -140,7 +180,6 @@ function ikegamida_mm(prop_prefs::Matrix{Int}, resp_prefs::Matrix{Int}, caps::Ve
     
     # set up
     prop_num, resp_num = size(prop_prefs)[2], size(resp_prefs)[2]
-    
     # capsがrespの持つcapsの場合
     if length(caps) == resp_num
         
@@ -338,7 +377,7 @@ function ikegamida_mm(prop_prefs::Matrix{Int}, resp_prefs::Matrix{Int}, caps::Ve
                                     rival = resp_matched[j]
                                     
                                     # rivalがかつ場合はするー
-                                    # rivaが負ける場合
+                                    # rivalが負ける場合
                                     if resp_rank[rival+1, j] > resp_rank[i+1, j]
                                         # rivalとか指定しなくても、prop_matchedにはもともとjは一人しかいないから、そこをreplaceすればいい？
                                         for (k,l) in enumerate(prop_matched)
