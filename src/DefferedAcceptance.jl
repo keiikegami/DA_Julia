@@ -40,7 +40,7 @@ function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}}, caps::Vector{In
 end
 
 function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}})
-    caps = ones(Int, length(resp_prefs))
+    caps = ones(Int, length(b))
     w = converter(a, b)
     a_2d = w[1]
     b_2d = w[2]
