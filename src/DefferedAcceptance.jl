@@ -44,7 +44,7 @@ function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}})
     w = converter(a, b)
     a_2d = w[1]
     b_2d = w[2]
-    a, b, c =  ikegamida_mm(a_2d, b_2d, caps)
+    a, b, c =  ikegami(a_2d, b_2d, caps)
     return a, b
 end
 
