@@ -33,7 +33,6 @@ end
 
 # many-to-manyの関数を入れる
 function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}}, caps::Vector{Int})
-    caps = ones(Int, length(resp_prefs))
     w = converter(a, b)
     a_2d = w[1]
     b_2d = w[2]
@@ -41,6 +40,7 @@ function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}}, caps::Vector{In
 end
 
 function ikegami(a::Vector{Vector{Int}}, b::Vector{Vector{Int}})
+    caps = ones(Int, length(resp_prefs))
     w = converter(a, b)
     a_2d = w[1]
     b_2d = w[2]
